@@ -1,2 +1,2 @@
 #!/bin/bash
-chgp school hello
+chown -hr vincent:staff
