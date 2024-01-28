@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 #  Bash script that gives you information about the holbertonschool file.
 
-if [ -e "ALX school" ]
+if [ -e "ALXschool" ]
 then
   echo "school file exists"
-  if [ -s "ALX school" ]
+  if [ -s "ALXschool" ]
   then
     echo "school file is not empty"
   else
     echo "school file is empty"
   fi
 
-  if [ -f "ALX school" ]
+  if [ -f "ALXschool" ]
   then
     echo "school file is a regular file"
   fi
