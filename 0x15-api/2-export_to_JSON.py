@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Exports data in the JSON format"""
+
 from requests import get
 from sys import argv
 import json
