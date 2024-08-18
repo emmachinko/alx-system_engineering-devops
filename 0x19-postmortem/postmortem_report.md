@@ -1,30 +1,60 @@
-IMPACT DETAILS:
-Incident Date and Time: January 15, 2024, 8:00 PM — 1:00 AM (WAT)
-Incident Duration: 5 hours
-Incident Severity: High
-Incident Impact: Intermittent downtime, degraded service performance
-Affected Systems/Services: Web applications, server infrastructure
-Incident Response Team: Security Response Team, Network Operations Team
+Incident report/postmortem August 16, 2024
 
-TIMELINE:
-January 15, 8:00 PM: Unusual spike in traffic detected; DDoS protection system alerted.
-January 15, 8:15 PM: Incident response team activated; initial investigation launched.
-January 15, 9:00 PM: DDoS attack confirmed; mitigation measures initiated.
-January 15, 10:00 PM: Collaborated with DDoS mitigation service provider to optimize filtering rules.
-January 15, 11:00 PM: Mitigation efforts ongoing; services still experiencing intermittent downtime.
-January 16, 12:00 AM: Successfully mitigated the DDoS attack; services gradually restored.
-January 16, 1:00 AM: Incident resolved, and network stability regained.
-ROOT CAUSE:
-The root cause of the service disruptions was a malicious Distributed Denial of Service (DDoS) attack targeting the organization's web services. The attack flooded the network with traffic, overwhelming server capacity and causing intermittent downtime.
+Issue summary:
 
-RESOLUTION:
-The incident was resolved through the implementation of filtering rules to block malicious traffic. Collaborative efforts with the DDoS mitigation service provider were crucial in optimizing filtering rules and ensuring the timely mitigation of the attack. Services were gradually restored as the filtering mechanisms took effect.
+On August 16, 2024, from 9:00 AM to 2:00 PM GMT+2, users were unable to access our company's web application. The service  outage prevented all users attempting to log into the application during this time period, resulting in a 100% service outage. Users were experiencing an error message or service timeout when attempting to access the server.
 
-CORRECTIVE AND PREVENTIVE MEASURES:
-Enhance DDoS Detection: Improve DDoS detection algorithms to enhance early identification of potential attacks.
-Regularly Review and Update Mitigation Strategies: Periodically review and update DDoS mitigation strategies to adapt to evolving attack techniques.
-Implement Redundancy and Failover Mechanisms: Introduce redundancy and failover mechanisms to enhance service availability during DDoS attacks.
+Root Causes:
 
-Educational Programs: Conduct educational programs for the IT and security teams to stay informed about emerging DDoS attack vectors and mitigation techniques.
+Our team identified the root cause of the issue as a configuration error in the load balancer. The load balancer had reached its connection limit, causing it to reject new connections to the web servers. And those already connected are facing system timeout due to software bugs.
 
-In summary, this postmortem report provides insights into the response, resolution, and preventive measures following a DDoS attack, ensuring a more resilient and secure web infrastructure for the organization.
+Timeline:
+
+- 9:00 AM GMT+2: The issue was detected through monitoring alerts of a high number of requests to the load balancer.
+
+- 9:20 AM GMT+2: Our team began investigating the issue, assuming it was a database or application server issue.
+
+- 10:00 AM GMT+2: After investigating the database and application server, it was discovered that the load balancer was the root cause.
+
+- 10:20 AM GMT+2: The load balancer was restarted in an attempt to fix the issue.
+
+- 10:50 AM GMT+2: The issue persisted after the restart, and our team escalated the incident to the network infrastructure team.
+
+- 11:30 AM GMT+2: The network infrastructure team identified the configuration error in the load balancer and the bugs causing system timeout. They worked and resolved the issue.
+
+- 2:00 PM GMT+2: The web server was fully restored and accessible to all users.
+
+Misleading Investigation/Debugging Paths:
+
+At first, our team assumed the issue was with the database or application servers. This assumption led to a delay in identifying the root cause thereby  escalating the incident to the appropriate team for proper investigation.
+
+Escalation:
+
+After the load balancer was restarted, as the problem persist, the incident was escalated to the network infrastructure team to do their part in indentifying the problem.
+
+Resolution:
+
+The network infrastructure team identified and corrected the configuration error in the load balancer, and with the help of bug tracker, the bug causing service timeout was detected and fixed. All this moves helped to restored full service to the web server.
+
+Corrective and Preventative Measures:
+
+To prevent similar outages from occurring in the future, our team has implemented the following measures:
+
+- Increase monitoring of the load balancer to detect connection limit issues
+
+- Review load balancer configurations to ensure they are optimized for our current traffic load
+
+- Update incident response procedures to escalate issues to the appropriate team faster
+
+- Conduct training sessions for team members on identifying and troubleshooting load balancer issues
+
+TASK:
+
+- Review and optimize load balancer configurations
+
+- Increase monitoring of the load balancer
+
+- Alerting mechanisms to provide timely notifications of service degradations.
+
+- Conduct training sessions for team members
+
